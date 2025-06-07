@@ -3,7 +3,7 @@ const VT_API_KEY = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
 
 const vtRequest = async (endpoint, options = {}) => {
     const baseUrl = process.env.NODE_ENV === 'production'
-        ? 'https://your-production-backend.onrender.com' 
+        ? 'https://cybertron-backend.onrender.com' 
         : API_BASE_URL;
 
     try {
