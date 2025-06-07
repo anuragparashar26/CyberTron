@@ -7,23 +7,27 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --port $PORT --host"
+    "preview": "vite preview --port $PORT --host",
+    "server": "node server/server.js",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.8",
     "autoprefixer": "^10.4.21",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "lucide-react": "^0.513.0",
-    "postcss": "^8.5.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "express": "^4.21.2",
+    "lucide-react": "^0.354.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
     "@tailwindcss/forms": "^0.5.10",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.5.1",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",

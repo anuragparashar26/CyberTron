@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: cybertron-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm run start
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: VIRUSTOTAL_API_KEY
+        sync: false

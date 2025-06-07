@@ -1,9 +1,13 @@
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
 const VT_API_KEY = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
-const VT_BASE_URL = 'https://www.virustotal.com/api/v3';
 
 const vtRequest = async (endpoint, options = {}) => {
+    const baseUrl = process.env.NODE_ENV === 'production'
+        ? 'https://your-production-backend.onrender.com' 
+        : API_BASE_URL;
+
     try {
-        const response = await fetch(`${VT_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${baseUrl}/api/v3${endpoint}`, {
             ...options,
             headers: {
                 'x-apikey': VT_API_KEY,
@@ -12,7 +16,7 @@ const vtRequest = async (endpoint, options = {}) => {
         });
 
         if (!response.ok) {
-            throw new Error(`VirusTotal API error: ${response.status} ${response.statusText}`);
+            throw new Error(`VirusTotal API error: ${response.status}`);
         }
 
         return await response.json();
@@ -25,28 +29,26 @@ const vtRequest = async (endpoint, options = {}) => {
 export const scanUrl = async (url) => {
     try {
     
-        const urlId = btoa(url).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        const scanResponse = await vtRequest('/urls', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `url=${encodeURIComponent(url)}`
+        });
 
-        try {
-            const existing = await vtRequest(`/urls/${urlId}`);
-            return formatUrlResult(existing.data.attributes);
-        } catch (e) {
-            
-            const scan = await vtRequest('/urls', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `url=${encodeURIComponent(url)}`
-            });
 
-            
-            await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
 
-            const result = await vtRequest(`/analyses/${scan.data.id}`);
-            return formatUrlResult(result.data.attributes);
-        }
+
+        const result = await vtRequest(`/analyses/${scanResponse.data.id}`);
+        return {
+            positives: result.data.attributes.stats.malicious,
+            total: result.data.attributes.stats.total,
+            scanDate: new Date().toISOString(),
+            status: result.data.attributes.status
+        };
     } catch (error) {
-        console.error('VirusTotal scan error:', error);
-        return null;
+        console.error('Scan error:', error);
+        throw new Error('URL scan failed. Check your API key and try again.');
     }
 };
 
@@ -62,11 +64,11 @@ export const scanFile = async (hash) => {
 
 export const uploadAndScanFile = async (file) => {
     try {
-       
-        const urlResponse = await vtRequest('/files/upload_url');
-        const uploadUrl = urlResponse.data.url; 
 
- 
+        const urlResponse = await vtRequest('/files/upload_url');
+        const uploadUrl = urlResponse.data.url;
+
+
         const formData = new FormData();
         formData.append('file', file);
 
@@ -88,7 +90,7 @@ export const uploadAndScanFile = async (file) => {
         const uploadData = await uploadResponse.json();
         console.log('Upload response:', uploadData);
 
-        
+
         await new Promise(resolve => setTimeout(resolve, 5000));
 
         const analysisId = uploadData.data.id;

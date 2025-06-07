@@ -12,9 +12,37 @@ export const createSecurityCommands = (gameState, updateGameState) => {
         const option = args[0];
         const target = args[1];
 
+        if (!import.meta.env.VITE_VIRUSTOTAL_API_KEY) {
+            return [
+                "❌ VirusTotal API key not configured",
+                "Please set VITE_VIRUSTOTAL_API_KEY in your .env file",
+                "Or use: config virustotal <your-api-key>"
+            ];
+        }
+
         try {
             if (option === '--url') {
-                return await simulateUrlScan(target);
+                updateGameState.updateLastLine('⌛ Scanning URL...');
+                const result = await scanUrl(target);
+
+                if (!result) {
+                    return [
+                        "❌ Scan failed",
+                        "Check your API key or try again later"
+                    ];
+                }
+
+                updateGameState.addScore(5);
+                return [
+                    `🔍 Scanning URL: ${target}`,
+                    "═══════════════════════════════",
+                    `Scan Date: ${result.scanDate}`,
+                    `Detection ratio: ${result.positives}/${result.total}`,
+                    "",
+                    result.positives > 0 ? "⚠️ Threats detected!" : "✅ URL appears safe",
+                    "",
+                    "✨ +5 points earned!"
+                ];
             } else if (option === '--file') {
                 return await simulateFileScan(target);
             } else {
@@ -23,7 +51,8 @@ export const createSecurityCommands = (gameState, updateGameState) => {
         } catch (error) {
             return [
                 "❌ Scan failed",
-                error.message
+                error.message,
+                "Please check your API key and try again"
             ];
         }
     };
