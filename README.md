@@ -1,12 +1,70 @@
-# React + Vite
+# CyberTron
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CyberTron is an interactive cybersecurity learning platform that simulates security tools and analysis in a gamified terminal environment.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔍 URL and File scanning with VirusTotal integration
+- 💻 Interactive terminal interface
+- 🎮 Gamified learning experience
+- 📊 Progress tracking and achievements
+- 🛠️ Network analysis tools simulation
+- 🔐 Security analysis commands
+- 📝 Interactive security quizzes
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm
+- VirusTotal API key
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/anuragparashar26/cybertron.git
+cd cybertron
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root directory:
+```
+VITE_VIRUSTOTAL_API_KEY=your_virustotal_api_key_here
+```
+
+4. Start the development server
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+## 🎮 Usage
+
+### Available Commands
+
+- `scan --url <url>` - Scan a URL for potential threats
+- `scan --file <file>` - Analyze a file for malware
+- `nmap <target>` - Simulate network scanning
+- `analyze <file>` - Perform detailed file analysis
+- `help` - Show all available commands
+
+### Quick Start
+1. Type `help` to see available commands
+2. Complete the tutorial missions
+3. Try scanning URLs and files
+4. Take security quizzes to earn points
+
+## 🛠️ Built With
+
+- React
+- Vite
+- TailwindCSS
+- Express
+- VirusTotal API

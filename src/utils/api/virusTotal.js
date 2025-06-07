@@ -1,13 +1,8 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
 const VT_API_KEY = import.meta.env.VITE_VIRUSTOTAL_API_KEY;
 
 const vtRequest = async (endpoint, options = {}) => {
-    const baseUrl = process.env.NODE_ENV === 'production'
-        ? 'https://cybertron-backend.onrender.com' 
-        : API_BASE_URL;
-
     try {
-        const response = await fetch(`${baseUrl}/api/v3${endpoint}`, {
+        const response = await fetch(`https://www.virustotal.com/api/v3${endpoint}`, {
             ...options,
             headers: {
                 'x-apikey': VT_API_KEY,
@@ -28,7 +23,7 @@ const vtRequest = async (endpoint, options = {}) => {
 
 export const scanUrl = async (url) => {
     try {
-    
+
         const scanResponse = await vtRequest('/urls', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
