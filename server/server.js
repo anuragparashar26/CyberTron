@@ -11,43 +11,21 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://cybertron-xr19.onrender.com']
+}));
 app.use(express.json());
-
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'healthy' });
-});
-
-app.post('/api/v3/urls', async (req, res) => {
+app.get('/api/v3/*', async (req, res) => {
     try {
-        const response = await fetch('https://www.virustotal.com/api/v3/urls', {
-            method: 'POST',
-            headers: {
-                'x-apikey': process.env.VITE_VIRUSTOTAL_API_KEY,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: req.body
-        });
-        const data = await response.json();
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-app.get('/api/v3/analyses/:id', async (req, res) => {
-    try {
-        const response = await fetch(`https://www.virustotal.com/api/v3/analyses/${req.params.id}`, {
+        const vtResponse = await fetch(`https://www.virustotal.com/api/v3${req.path.replace('/api/v3', '')}`, {
             headers: {
                 'x-apikey': process.env.VITE_VIRUSTOTAL_API_KEY
             }
         });
-        const data = await response.json();
+        const data = await vtResponse.json();
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
