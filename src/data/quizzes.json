@@ -1,0 +1,55 @@
+{
+  "general_security_1": {
+    "title": "General Security Concepts",
+    "questions": [
+      {
+        "id": 1,
+        "question": "What does 'phishing' refer to in cybersecurity?",
+        "options": [
+          "A type of firewall",
+          "A method of tricking people into revealing sensitive information",
+          "A secure way to fish for data",
+          "A network scanning tool"
+        ],
+        "answer": "A method of tricking people into revealing sensitive information",
+        "explanation": "Phishing is a social engineering attack often used to steal user data, including login credentials and credit card numbers."
+      },
+      {
+        "id": 2,
+        "question": "Which of the following is a common sign of a malware infection?",
+        "options": [
+          "Your computer runs faster than usual",
+          "Unexpected pop-up ads appear frequently",
+          "You receive fewer spam emails",
+          "Your internet connection is more stable"
+        ],
+        "answer": "Unexpected pop-up ads appear frequently",
+        "explanation": "Sudden and frequent pop-up ads are a classic symptom of adware, a type of malware that bombards you with advertisements."
+      },
+      {
+        "id": 3,
+        "question": "What is the purpose of a firewall?",
+        "options": [
+          "To cool down the computer's CPU",
+          "To monitor and control incoming and outgoing network traffic",
+          "To encrypt all files on a hard drive",
+          "To increase internet speed"
+        ],
+        "answer": "To monitor and control incoming and outgoing network traffic",
+        "explanation": "A firewall acts as a barrier between a trusted network and an untrusted network, filtering traffic based on a set of security rules."
+      },
+      {
+        "id": 4,
+        "question": "What does '2FA' stand for?",
+        "options": [
+          "Two-Factor Authentication",
+          "Two-Fold Algorithm",
+          "Twice-Factored Authorization",
+          "Two-File Access"
+        ],
+        "answer": "Two-Factor Authentication",
+        "explanation": "2FA is a security process where users provide two different authentication factors to verify themselves, adding an extra layer of security."
+      }
+    ]
+  }
+}

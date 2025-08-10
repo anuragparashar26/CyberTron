@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Cyber-Novice",
+    "xp": 1000,
+    "icon": "🛡️",
+    "description": "Earned 50 XP"
+  },
+  {
+    "name": "Code-Scout",
+    "xp": 2000,
+    "icon": "⚔️",
+    "description": "Earned 150 XP"
+  },
+  {
+    "name": "Digital-Detective",
+    "xp": 3000,
+    "icon": "🕵️",
+    "description": "Earned 300 XP"
+  },
+  {
+    "name": "Cyber-Sentinel",
+    "xp": 4000,
+    "icon": "🏆",
+    "description": "Earned 500 XP"
+  }
+]

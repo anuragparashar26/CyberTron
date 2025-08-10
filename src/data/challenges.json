@@ -1,0 +1,13 @@
+[
+  {
+    "id": "ctf001",
+    "title": "The Encoded Message",
+    "description": "A secret message has been intercepted. It seems to be encoded in Base64. Decode it to find the flag.",
+    "prompt": "Encoded message: Q3liZXJUcm9uUm9ja3M=",
+    "flag": "CyberTronRocks",
+    "reward": {
+      "xp": 100,
+      "badge": "Decoder Ring"
+    }
+  }
+]
