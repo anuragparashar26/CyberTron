@@ -14,8 +14,19 @@ const AuthPage = () => {
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const { signUp, signIn } = useAuth();
+  const { signUp, signIn, user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        navigate('/dashboard', { replace: true });
+      }
+    });
+    return () => {
+      subscription?.unsubscribe();
+    };
+  }, [navigate]);
 
   useEffect(() => {
     if (isLogin || username.trim().length < 3) {
@@ -103,7 +114,10 @@ const AuthPage = () => {
         const { data, error } = await signUp({ 
           email, 
           password, 
-          options: { data: { username: username.trim() } } 
+          options: { 
+            data: { username: username.trim() },
+            emailRedirectTo: `${window.location.origin}/auth`
+          } 
         });
 
         if (error) {
