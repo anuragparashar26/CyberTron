@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import Leaderboard from '../components/Leaderboard';
@@ -6,6 +7,8 @@ import badges from '../data/badges.json';
 import challenges from '../data/challenges.json';
 
 const Dashboard = () => {
+  const { access_token } = useParams();
+  const navigate = useNavigate();
   const { profile } = useAuth();
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +31,13 @@ const Dashboard = () => {
 
     fetchLeaderboard();
   }, []);
+
+  useEffect(() => {
+    if (access_token) {
+      // Remove the access token from URL by navigating to clean dashboard URL
+      navigate('/dashboard', { replace: true });
+    }
+  }, [access_token, navigate]);
 
   if (!profile) {
     return <p>Loading dashboard...</p>;
