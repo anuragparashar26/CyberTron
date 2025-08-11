@@ -116,7 +116,7 @@ const AuthPage = () => {
           password, 
           options: { 
             data: { username: username.trim() },
-            emailRedirectTo: `${window.location.origin}/dashboard`
+            emailRedirectTo: `${window.location.origin}`
           } 
         });
 

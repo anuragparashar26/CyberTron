@@ -14,11 +14,6 @@ export const AuthProvider = ({ children }) => {
     const handleAuthChange = async (session) => {
       console.log('Auth state changed:', session ? 'logged in' : 'logged out');
       
-      // Clean up URL if it contains access_token
-      if (window.location.hash.includes('access_token')) {
-        window.history.replaceState(null, '', window.location.pathname);
-      }
-      
       if (!mounted) return;
 
       try {
